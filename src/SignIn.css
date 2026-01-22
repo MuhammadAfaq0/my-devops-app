@@ -1,0 +1,56 @@
+.signin-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://assets.nflxext.com/ffe/siteui/vlv3/7e7e2e2e-2e2e-4e4e-8e8e-2e2e2e2e2e2e/7e7e2e2e-2e2e-4e4e-8e8e-2e2e2e2e2e2e_1920x1080.jpg') center/cover no-repeat;
+}
+
+.signin-form {
+  background: rgba(0,0,0,0.85);
+  padding: 40px 32px;
+  border-radius: 8px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: white;
+}
+
+.signin-form h2 {
+  margin-bottom: 8px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.signin-form input {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.signin-form button {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.signin-form .error {
+  color: #e50914;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.signin-help {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #b3b3b3;
+}

@@ -1,6 +1,8 @@
+import React, { useState } from 'react';
 import './App.css';
+import SignIn from './SignIn';
 
-function App() {
+function NetflixHome({ onSignInClick }) {
   return (
     <div className="netflix">
       <header className="netflix-header">
@@ -12,7 +14,7 @@ function App() {
           <a href="#">New & Popular</a>
           <a href="#">My List</a>
         </nav>
-        <button className="sign-in">Sign In</button>
+        <button className="sign-in" onClick={onSignInClick}>Sign In</button>
       </header>
       <main>
         <section className="hero">
@@ -47,6 +49,16 @@ function App() {
         </section>
       </main>
     </div>
+  );
+}
+
+function App() {
+  const [page, setPage] = useState('home');
+
+  return page === 'signin' ? (
+    <SignIn onSignIn={() => setPage('home')} />
+  ) : (
+    <NetflixHome onSignInClick={() => setPage('signin')} />
   );
 }
 
