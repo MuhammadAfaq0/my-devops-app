@@ -7,7 +7,7 @@ const HERO = {
   image: 'https://via.placeholder.com/1920x1080/000000/FFFFFF?text=Stranger+Things',
 };
 
-const THUMBNAILS = [
+export const THUMBNAILS = [  // ✅ Added 'export' here
   'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie1',
   'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie2',
   'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie3',
