@@ -2,51 +2,88 @@ import React, { useState } from 'react';
 import './App.css';
 import SignIn from './SignIn';
 
+const NAV_ITEMS = ['Home', 'TV Shows', 'Movies', 'New & Popular', 'My List'];
+const HERO = {
+  title: 'Stranger Things',
+  description:
+    'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.',
+  image: 'https://via.placeholder.com/1920x1080/000000/FFFFFF?text=Stranger+Things',
+};
+
+const THUMBNAILS = [
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie1',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie2',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie3',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie4',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie5',
+];
+
+function Header({ onSignIn }) {
+  return (
+    <header className="netflix-header" role="banner">
+      <div className="header-inner">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png"
+          alt="Netflix logo"
+          className="netflix-logo"
+        />
+
+        <nav className="netflix-nav" aria-label="Main navigation">
+          <ul>
+            {NAV_ITEMS.map((item) => (
+              <li key={item}>
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <button type="button" className="sign-in" onClick={onSignIn} aria-label="Sign in">
+          Sign In
+        </button>
+      </div>
+    </header>
+  );
+}
+
+function Hero({ title, description, image }) {
+  return (
+    <section className="hero" style={{ backgroundImage: `url(${image})` }} aria-label="Featured">
+      <div className="hero-content">
+        <h1>{title}</h1>
+        <p>{description}</p>
+        <div className="buttons">
+          <button type="button" className="play">Play</button>
+          <button type="button" className="more-info">More Info</button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Row({ title, items }) {
+  return (
+    <section className="row" aria-labelledby={title.replace(/\s+/g, '-').toLowerCase()}>
+      <h2 id={title.replace(/\s+/g, '-').toLowerCase()}>{title}</h2>
+      <div className="thumbnails" role="list">
+        {items.map((src, idx) => (
+          <img key={idx} src={src} alt={`${title} ${idx + 1}`} role="listitem" />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function NetflixHome({ onSignInClick }) {
   return (
     <div className="netflix">
-      <header className="netflix-header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix" className="netflix-logo" />
-        <nav className="netflix-nav">
-          <a href="#">Home</a>
-          <a href="#">TV Shows</a>
-          <a href="#">Movies</a>
-          <a href="#">New & Popular</a>
-          <a href="#">My List</a>
-        </nav>
-        <button className="sign-in" onClick={onSignInClick}>Sign In</button>
-      </header>
+      <Header onSignIn={onSignInClick} />
       <main>
-        <section className="hero">
-          <div className="hero-content">
-            <h1>Stranger Things</h1>
-            <p>When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.</p>
-            <div className="buttons">
-              <button className="play">Play</button>
-              <button className="more-info">More Info</button>
-            </div>
-          </div>
-        </section>
-        <section className="row">
-          <h2>Trending Now</h2>
-          <div className="thumbnails">
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie1" alt="Movie 1" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie2" alt="Movie 2" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie3" alt="Movie 3" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie4" alt="Movie 4" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie5" alt="Movie 5" />
-          </div>
-        </section>
-        <section className="row">
-          <h2>Top Rated</h2>
-          <div className="thumbnails">
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Top1" alt="Top 1" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Top2" alt="Top 2" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Top3" alt="Top 3" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Top4" alt="Top 4" />
-            <img src="https://via.placeholder.com/200x300/000000/FFFFFF?text=Top5" alt="Top 5" />
-          </div>
-        </section>
+        <Hero title={HERO.title} description={HERO.description} image={HERO.image} />
+        <Row title="Trending Now" items={THUMBNAILS} />
+        <Row title="Top Rated" items={THUMBNAILS.map((t) => t.replace('Movie', 'Top'))} />
       </main>
     </div>
   );
