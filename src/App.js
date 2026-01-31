@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-
 import SignIn from './SignIn';
+import HomeContent from './HomeContent';
+
+// Tab page components are implemented in separate files (imported below)
+
+import TvShows from './TvShows'; 
+import Movies from './Movies'; 
+import NewPopular from './NewPopular'; 
+import MyList from './MyList'; 
+import BrowseHome from './BrowseHome'; 
+
 
 const NAV_ITEMS = ['Home', 'TV Shows', 'Movies', 'New & Popular', 'My List'];
 
-import HomeContent, { Row } from './HomeContent';
-
-
-function Header({ onSignIn, onSignOut, user }) {
+// FIXED: Added activeNav and onNavSelect to props
+function Header({ onSignIn, onSignOut, user, activeNav, onNavSelect }) {
   return (
     <header className="netflix-header" role="banner">
       <div className="header-inner">
@@ -28,7 +35,8 @@ function Header({ onSignIn, onSignOut, user }) {
                   aria-current={activeNav === item ? 'page' : undefined}
                   onClick={(e) => {
                     e.preventDefault();
-                    onNavSelect(item);
+                    // This will now work because we passed the prop
+                    if (onNavSelect) onNavSelect(item);
                   }}
                 >
                   {item}
@@ -124,7 +132,6 @@ export default function App() {
     );
   }
 
-  // page === 'home'
   return (
     <div className="netflix">
       <Header

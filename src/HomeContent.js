@@ -1,13 +1,13 @@
 import React from 'react';
 
-const HERO = {
+export const HERO = {
   title: 'Stranger Things',
   description:
     'When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.',
   image: 'https://via.placeholder.com/1920x1080/000000/FFFFFF?text=Stranger+Things',
 };
 
-const THUMBNAILS = [
+export const THUMBNAILS = [
   'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie1',
   'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie2',
   'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie3',
