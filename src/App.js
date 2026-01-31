@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 import SignIn from './SignIn';
+import HomeContent, { Row, THUMBNAILS } from './HomeContent';  // ✅ Moved to top & added THUMBNAILS
 
-const NAV_ITEMS = ['Home', 'TV Shows', 'Movies', 'New & Popular', 'My List'];
-
-import HomeContent, { Row } from './HomeContent';
+const NAV_ITEMS = ['Home', 'TV Shows', 'Movies', 'New & Popular', 'My List'];  // ✅ Now AFTER imports
 
 
 function Header({ onSignIn, onSignOut, user }) {
