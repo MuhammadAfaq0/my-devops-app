@@ -13,7 +13,8 @@ function SignIn({ onSignIn }) {
       return;
     }
     setError('');
-    onSignIn();
+    const username = email.split('@')[0] || 'User';
+    onSignIn({ name: username, email });
   };
 
   return (
