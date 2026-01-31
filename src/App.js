@@ -2,17 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import SignIn from './SignIn';
-import HomeContent from './HomeContent';
-
-import BrowseHome from './BrowseHome';
-import TvShows from './TvShows';
-import Movies from './Movies';
-import NewPopular from './NewPopular';
-import MyList from './MyList';
 
 const NAV_ITEMS = ['Home', 'TV Shows', 'Movies', 'New & Popular', 'My List'];
 
-function Header({ onSignIn, onSignOut, user, activeNav, onNavSelect }) {
+import HomeContent, { Row } from './HomeContent';
+
+
+function Header({ onSignIn, onSignOut, user }) {
   return (
     <header className="netflix-header" role="banner">
       <div className="header-inner">

@@ -7,12 +7,12 @@ const HERO = {
   image: 'https://via.placeholder.com/1920x1080/000000/FFFFFF?text=Stranger+Things',
 };
 
-export const THUMBNAILS = [
-  'https://via.placeholder.com/600x338/111111/FFFFFF?text=Movie+1',
-  'https://via.placeholder.com/600x338/111111/FFFFFF?text=Movie+2',
-  'https://via.placeholder.com/600x338/111111/FFFFFF?text=Movie+3',
-  'https://via.placeholder.com/600x338/111111/FFFFFF?text=Movie+4',
-  'https://via.placeholder.com/600x338/111111/FFFFFF?text=Movie+5',
+const THUMBNAILS = [
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie1',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie2',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie3',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie4',
+  'https://via.placeholder.com/200x300/000000/FFFFFF?text=Movie5',
 ];
 
 export function Hero({ title, description, image, onSignInClick }) {
