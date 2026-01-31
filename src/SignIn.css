@@ -1,56 +1,140 @@
-.signin-container {
+:root {
+  --nf-red: #e50914;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.75);
+}
+
+.signin-page {
   min-height: 100vh;
+  position: relative;
+  background:
+    url("https://via.placeholder.com/1920x1080/111111/FFFFFF?text=Netflix+Background")
+    center / cover no-repeat;
+  color: var(--text);
+}
+
+.signin-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.62);
+}
+
+/* Header */
+.signin-header {
+  position: relative;
+  z-index: 1;
+  height: 88px;
+  padding: 22px 48px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://assets.nflxext.com/ffe/siteui/vlv3/7e7e2e2e-2e2e-4e4e-8e8e-2e2e2e2e2e2e/7e7e2e2e-2e2e-4e4e-8e8e-2e2e2e2e2e2e_1920x1080.jpg') center/cover no-repeat;
+  justify-content: space-between;
 }
 
-.signin-form {
-  background: rgba(0,0,0,0.85);
-  padding: 40px 32px;
-  border-radius: 8px;
-  width: 320px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  color: white;
-}
+.signin-logo { height: 32px; width: auto; }
 
-.signin-form h2 {
-  margin-bottom: 8px;
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.signin-form input {
-  padding: 12px;
-  border: none;
+.signin-back {
+  background: transparent;
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 8px 14px;
   border-radius: 4px;
-  font-size: 1rem;
-  margin-bottom: 8px;
-}
-
-.signin-form button {
-  background: #e50914;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 700;
   cursor: pointer;
-  margin-top: 8px;
 }
 
-.signin-form .error {
-  color: #e50914;
-  font-size: 0.95rem;
+.signin-back:hover {
+  border-color: rgba(255,255,255,0.45);
+}
+
+/* Card */
+.signin-card {
+  position: relative;
+  z-index: 1;
+  width: min(450px, 92vw);
+  margin: 28px auto 0;
+  background: rgba(0,0,0,0.75);
+  border-radius: 6px;
+  padding: 44px 56px;
+}
+
+.signin-card h1 {
+  margin: 0 0 22px;
+  font-size: 32px;
+  font-weight: 900;
+}
+
+/* Fields */
+.field { display: block; margin-bottom: 14px; }
+.field-label {
+  display: block;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
   margin-bottom: 8px;
 }
 
+.field input {
+  width: 100%;
+  height: 50px;
+  border-radius: 4px;
+  border: 1px solid #333;
+  background: #333;
+  color: #fff;
+  padding: 0 14px;
+  font-size: 16px;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: rgba(255,255,255,0.35);
+  background: #3b3b3b;
+}
+
+.signin-submit {
+  width: 100%;
+  height: 48px;
+  margin-top: 6px;
+  background: var(--nf-red);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 900;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.signin-submit:hover { filter: brightness(1.05); }
+
+/* Help row */
 .signin-help {
-  text-align: right;
-  font-size: 0.9rem;
-  color: #b3b3b3;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255,255,255,0.75);
+  font-size: 13px;
+}
+
+.signin-help a { color: rgba(255,255,255,0.75); }
+.signin-help a:hover { text-decoration: underline; color: #fff; }
+
+.remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.remember input { accent-color: var(--nf-red); }
+
+/* Footer text */
+.signin-meta {
+  margin: 18px 0 0;
+  color: rgba(255,255,255,0.75);
+  font-size: 14px;
+}
+
+.signin-meta a { color: #fff; }
+.signin-meta a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .signin-header { padding: 18px 16px; }
+  .signin-card { padding: 32px 22px; }
 }

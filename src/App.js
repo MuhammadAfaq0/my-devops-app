@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+
 import SignIn from './SignIn';
+import HomeContent from './HomeContent';
+
+import BrowseHome from './BrowseHome';
+import TvShows from './TvShows';
+import Movies from './Movies';
+import NewPopular from './NewPopular';
+import MyList from './MyList';
 
 const NAV_ITEMS = ['Home', 'TV Shows', 'Movies', 'New & Popular', 'My List'];
 
-import HomeContent, { Row } from './HomeContent';
-
-
-function Header({ onSignIn, onSignOut, user }) {
+function Header({ onSignIn, onSignOut, user, activeNav, onNavSelect }) {
   return (
     <header className="netflix-header" role="banner">
       <div className="header-inner">
@@ -21,7 +26,15 @@ function Header({ onSignIn, onSignOut, user }) {
           <ul>
             {NAV_ITEMS.map((item) => (
               <li key={item}>
-                <a href="#" onClick={(e) => e.preventDefault()}>
+                <a
+                  href="#"
+                  className={activeNav === item ? 'nav-link active' : 'nav-link'}
+                  aria-current={activeNav === item ? 'page' : undefined}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavSelect(item);
+                  }}
+                >
                   {item}
                 </a>
               </li>
@@ -33,12 +46,12 @@ function Header({ onSignIn, onSignOut, user }) {
           {user ? (
             <>
               <span className="profile-name">Hi, {user.name}</span>
-              <button type="button" className="sign-in" onClick={onSignOut} aria-label="Sign out">
+              <button type="button" className="sign-in" onClick={onSignOut}>
                 Sign Out
               </button>
             </>
           ) : (
-            <button type="button" className="sign-in" onClick={onSignIn} aria-label="Sign in">
+            <button type="button" className="sign-in" onClick={onSignIn}>
               Sign In
             </button>
           )}
@@ -48,37 +61,17 @@ function Header({ onSignIn, onSignOut, user }) {
   );
 }
 
-function NetflixHome({ onSignInClick }) {
-  return (
-    <div className="netflix">
-      <Header onSignIn={onSignInClick} />
-      <HomeContent onSignInClick={onSignInClick} />
-    </div>
-  );
-}
-
-function Browse({ user, onSignOut }) {
-  return (
-    <div className="netflix">
-      <Header onSignOut={onSignOut} user={user} />
-      <main>
-        <section className="browse-hero">
-          <div className="browse-content">
-            <h2>Welcome, {user?.name}</h2>
-            <p>Pick up where you left off or explore new releases curated for you.</p>
-          </div>
-        </section>
-
-        <Row title="Recommended for you" items={THUMBNAILS} />
-        <Row title="Continue Watching" items={THUMBNAILS.slice(0, 4)} />
-      </main>
-    </div>
-  );
-}
-
-function App() {
-  const [page, setPage] = useState('home');
+export default function App() {
+  const [page, setPage] = useState('home'); // 'home' | 'signin' | 'browse'
   const [user, setUser] = useState(null);
+
+  // Shared navbar tab state for BOTH home + browse
+  const [activeNav, setActiveNav] = useState('Home');
+
+  useEffect(() => {
+    // nicer UX: when switching tabs, jump to top
+    window.scrollTo(0, 0);
+  }, [activeNav, page]);
 
   const handleSignIn = (userObj) => {
     setUser(userObj || { name: 'User' });
@@ -87,16 +80,63 @@ function App() {
 
   const handleSignOut = () => {
     setUser(null);
-    setPage('signin');
+    setPage('home');
+    setActiveNav('Home');
   };
 
-  return page === 'signin' ? (
-    <SignIn onSignIn={handleSignIn} />
-  ) : page === 'browse' ? (
-    <Browse user={user} onSignOut={handleSignOut} />
-  ) : (
-    <NetflixHome onSignInClick={() => setPage('signin')} />
+  const renderTabContent = ({ signedIn }) => {
+    const onSignInClick = () => setPage('signin');
+
+    switch (activeNav) {
+      case 'TV Shows':
+        return <TvShows onSignInClick={signedIn ? undefined : onSignInClick} />;
+
+      case 'Movies':
+        return <Movies onSignInClick={signedIn ? undefined : onSignInClick} />;
+
+      case 'New & Popular':
+        return <NewPopular onSignInClick={signedIn ? undefined : onSignInClick} />;
+
+      case 'My List':
+        return <MyList signedIn={signedIn} onSignInClick={onSignInClick} />;
+
+      case 'Home':
+      default:
+        return signedIn ? (
+          <BrowseHome user={user} />
+        ) : (
+          <HomeContent onSignInClick={onSignInClick} />
+        );
+    }
+  };
+
+  if (page === 'signin') {
+    return <SignIn onSignIn={handleSignIn} onBack={() => setPage(user ? 'browse' : 'home')} />;
+  }
+
+  if (page === 'browse') {
+    return (
+      <div className="netflix">
+        <Header
+          user={user}
+          onSignOut={handleSignOut}
+          activeNav={activeNav}
+          onNavSelect={setActiveNav}
+        />
+        {renderTabContent({ signedIn: true })}
+      </div>
+    );
+  }
+
+  // page === 'home'
+  return (
+    <div className="netflix">
+      <Header
+        onSignIn={() => setPage('signin')}
+        activeNav={activeNav}
+        onNavSelect={setActiveNav}
+      />
+      {renderTabContent({ signedIn: false })}
+    </div>
   );
 }
-
-export default App;
